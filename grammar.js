@@ -153,8 +153,8 @@ module.exports = grammar(lua, {
       $.tuple_type,
       $.function_type,
       $.generic_type,
-      /*
       $.object_type,
+      /*
       $.empty_type,
       $.field_type,
       $.intersection_type,

@@ -154,6 +154,10 @@
         "named": true
       },
       {
+        "type": "object_type",
+        "named": true
+      },
+      {
         "type": "tuple_type",
         "named": true
       }
@@ -1025,6 +1029,29 @@
     }
   },
   {
+    "type": "object_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "object_field_type",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parameter",
     "named": true,
     "fields": {},
@@ -1654,11 +1681,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "or",
