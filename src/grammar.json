@@ -1,6 +1,8 @@
 {
+  "0": "l",
+  "1": "u",
+  "2": "a",
   "name": "luau",
-  "inherits": "lua",
   "word": "identifier",
   "rules": {
     "chunk": {
@@ -3191,10 +3193,6 @@
       "content": {
         "type": "CHOICE",
         "members": [
-          {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
           {
             "type": "SYMBOL",
             "name": "builtin_type"

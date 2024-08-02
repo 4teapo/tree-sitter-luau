@@ -149,7 +149,6 @@ module.exports = grammar(lua, {
     ),
 
     type: $ => prec.right(choice(
-      $.identifier,
       $.builtin_type,
       $.tuple_type,
       $.function_type,
