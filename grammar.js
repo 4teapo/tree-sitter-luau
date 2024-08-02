@@ -154,7 +154,6 @@ module.exports = grammar(lua, {
       $.function_type,
       $.generic_type,
       $.object_type,
-      /*
       $.empty_type,
       $.field_type,
       $.intersection_type,
@@ -162,7 +161,6 @@ module.exports = grammar(lua, {
       $.optional_type,
       $.literal_type,
       $.variadic_type,
-      */
     )),
 
     builtin_type: _ => choice(
