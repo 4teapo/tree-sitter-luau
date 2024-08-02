@@ -144,50 +144,6 @@
       {
         "type": "builtin_type",
         "named": true
-      },
-      {
-        "type": "empty_type",
-        "named": true
-      },
-      {
-        "type": "field_type",
-        "named": true
-      },
-      {
-        "type": "function_type",
-        "named": true
-      },
-      {
-        "type": "generic_type",
-        "named": true
-      },
-      {
-        "type": "intersection_type",
-        "named": true
-      },
-      {
-        "type": "literal_type",
-        "named": true
-      },
-      {
-        "type": "object_type",
-        "named": true
-      },
-      {
-        "type": "optional_type",
-        "named": true
-      },
-      {
-        "type": "tuple_type",
-        "named": true
-      },
-      {
-        "type": "union_type",
-        "named": true
-      },
-      {
-        "type": "variadic_type",
-        "named": true
       }
     ]
   },
@@ -564,11 +520,6 @@
     "fields": {}
   },
   {
-    "type": "empty_type",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "expression_list",
     "named": true,
     "fields": {
@@ -622,21 +573,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "field_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -871,44 +807,6 @@
     }
   },
   {
-    "type": "function_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "generic_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "generic_type_list",
     "named": true,
     "fields": {},
@@ -1023,44 +921,6 @@
     }
   },
   {
-    "type": "intersection_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "literal_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "method_index_expression",
     "named": true,
     "fields": {
@@ -1101,44 +961,6 @@
   },
   {
     "type": "object_field_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "object_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "object_field_type",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "optional_type",
     "named": true,
     "fields": {},
     "children": {
@@ -1343,21 +1165,6 @@
     }
   },
   {
-    "type": "tuple_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "type_definition",
     "named": true,
     "fields": {
@@ -1401,21 +1208,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "union_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1489,21 +1281,6 @@
     "children": {
       "multiple": true,
       "required": false,
-      "types": [
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "variadic_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
       "types": [
         {
           "type": "type",

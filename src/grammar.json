@@ -3196,50 +3196,6 @@
           {
             "type": "SYMBOL",
             "name": "builtin_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "tuple_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "function_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "generic_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "object_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "empty_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "field_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "intersection_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "union_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "optional_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "literal_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "variadic_type"
           }
         ]
       }
