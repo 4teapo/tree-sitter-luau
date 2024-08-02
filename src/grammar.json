@@ -3196,6 +3196,18 @@
           {
             "type": "SYMBOL",
             "name": "builtin_type"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "tuple_type"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "function_type"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "generic_type"
           }
         ]
       }
