@@ -1,0 +1,67 @@
+=====
+Basic string
+=====
+
+local _ = "Hello, World!"
+
+---
+
+    (chunk
+      (local_variable_declaration
+        (binding_list
+          (binding
+            (identifier)))
+        (expression_list
+          (string
+            (string_content)))))
+
+=====
+String with escape characters
+=====
+
+local _ = "Hello\nWorld!"
+
+---
+
+    (chunk
+      (local_variable_declaration
+        (binding_list
+          (binding
+            (identifier)))
+        (expression_list
+          (string
+            (string_content)))))
+
+=====
+Interpolated string
+=====
+
+local _ = `H{"e" .. "l"}lo\n{("w"):upper()}orld!`
+
+---
+
+    (chunk
+      (local_variable_declaration
+        (binding_list
+          (binding
+            (identifier)))
+        (expression_list
+          (interpolated_string
+            (string_content)
+            (string_interpolation
+              (binary_expression
+                (string
+                  (string_content))
+                (string
+                  (string_content))))
+            (string_content)
+            (escape_sequence)
+            (string_interpolation
+              (function_call
+                (method_index_expression
+                  (parenthesized_expression
+                    (string
+                      (string_content)))
+                  (field_identifier))
+                (arguments)))
+            (string_content)))))

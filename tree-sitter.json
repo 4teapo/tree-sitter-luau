@@ -5,7 +5,8 @@
       "camelcase": "Luau",
       "scope": "source.luau",
       "path": ".",
-      "file-types": null,
+      "file-types": ["luau"],
+      "highlights": "queries/highlights.scm",
       "injection-regex": "^luau$"
     }
   ],

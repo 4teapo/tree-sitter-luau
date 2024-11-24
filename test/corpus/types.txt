@@ -1,0 +1,73 @@
+=====
+Table type with generics
+=====
+
+type Ty<A, B..., C... = (string, number), D... = ...any> = {
+	read [vector]: (A, B...) -> C...,
+	read x: number,
+	write y: number,
+	read z: number,
+	read w: (C...) -> D...
+}
+
+---
+
+    (chunk
+      (type_alias_declaration
+        (type_identifier)
+        (generic_type_list_with_defaults
+          (generic_type_parameter
+            (type_identifier))
+          (generic_type_pack_parameter
+            (type_identifier))
+          (generic_type_pack_parameter_with_default
+            (type_identifier)
+            (type_pack
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier))))
+          (generic_type_pack_parameter_with_default
+            (type_identifier)
+            (variadic_type_pack
+              (type_reference
+                (type_identifier)))))
+        (table_type
+          (table_property_list
+            (table_indexer
+              (table_property_attribute)
+              (type_reference
+                (type_identifier))
+              (function_type
+                (bound_type_list
+                  (type_binding
+                    (type_reference
+                      (type_identifier)))
+                  (generic_type_pack
+                    (type_identifier)))
+                (generic_type_pack
+                  (type_identifier))))
+            (table_property
+              (table_property_attribute)
+              (field_identifier)
+              (type_reference
+                (type_identifier)))
+            (table_property
+              (table_property_attribute)
+              (field_identifier)
+              (type_reference
+                (type_identifier)))
+            (table_property
+              (table_property_attribute)
+              (field_identifier)
+              (type_reference
+                (type_identifier)))
+            (table_property
+              (table_property_attribute)
+              (field_identifier)
+              (function_type
+                (bound_type_list
+                  (generic_type_pack
+                    (type_identifier)))
+                (generic_type_pack
+                  (type_identifier))))))))

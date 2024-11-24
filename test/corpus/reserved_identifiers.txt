@@ -1,0 +1,596 @@
+=====
+Reserved identifiers
+=====
+
+export type Ty = {
+	a: (type: A) -> (),
+}
+
+for continue, type in {} do
+end
+
+for continue in {} do
+end
+
+for typeof in {} do
+end
+
+for type, continue in {} do
+end
+
+type continue = "12"
+
+print(type + 2, continue + 2)
+print(continue)
+print(type)
+
+continue(function()
+	continue += 2
+end)
+
+type += 2
+continue = type
+print(continue, type)
+
+foo.continue()
+foo:continue()
+foo.continue:type()
+foo.type:continue()
+foo.typeof()
+foo:typeof()
+foo.typeof:continue()
+
+print(foo.continue)
+print(foo.type)
+print(foo.typeof)
+foo.continue = type
+foo.export = type
+foo.type = export
+foo.typeof = type
+
+function foo.continue()
+end
+function foo:continue()
+end
+function foo.continue:type()
+end
+function foo.type:continue()
+end
+function foo.typeof()
+end
+function foo:typeof()
+end
+function foo.typeof:continue()
+end
+
+local function continue()
+end
+
+local function typeof()
+end
+
+local function type()
+end
+
+local function export()
+end
+
+for continue = type, typeof do
+end
+for typeof = type, typeof do
+end
+for type = type, typeof do
+end
+for export = type, typeof do
+end
+for typeof = type, export do
+end
+for continue = continue, type do
+end
+
+local function fun(typeof: type, export: type, continue: export, typeof: type)
+end
+
+type fun = (typeof: typeof, type: type, continue: typeof, export: type) -> (type, export, continue)
+type fun = (typeof: typeof, type: type, continue: typeof, export: type) -> (type)
+
+typeof()
+continue()
+type()
+
+
+type type = () -> (export...)
+type continue = () -> (type...)
+type export = () -> (typeof...)
+
+type test<export = type, typeof = type, continue = export> = {}
+type test2<export... = (type, continue), typeof... = (type, continue), continue... = (export, type)> = {}
+
+type function type()
+end
+
+type function typeof()
+end
+
+type function continue()
+end
+
+type function export()
+end
+
+type Ok = {
+	type: string,
+	typeof: string,
+}
+
+@[typeof {typeof = "hi", export = "type"}, type ("hi"), export { typeof = "continue" }] function foo()
+end
+
+---
+
+    (chunk
+      (type_alias_declaration
+        (type_identifier)
+        (table_type
+          (table_property_list
+            (table_property
+              (field_identifier)
+              (function_type
+                (bound_type_list
+                  (type_binding
+                    (identifier)
+                    (type_reference
+                      (type_identifier))))
+                (type_pack))))))
+      (for_statement
+        (for_generic_clause
+          (binding_list
+            (binding
+              (identifier))
+            (binding
+              (identifier)))
+          (expression_list
+            (table_constructor))))
+      (for_statement
+        (for_generic_clause
+          (binding_list
+            (binding
+              (identifier)))
+          (expression_list
+            (table_constructor))))
+      (for_statement
+        (for_generic_clause
+          (binding_list
+            (binding
+              (identifier)))
+          (expression_list
+            (table_constructor))))
+      (for_statement
+        (for_generic_clause
+          (binding_list
+            (binding
+              (identifier))
+            (binding
+              (identifier)))
+          (expression_list
+            (table_constructor))))
+      (type_alias_declaration
+        (type_identifier)
+        (singleton_type
+          (string
+            (string_content))))
+      (function_call
+        (identifier)
+        (arguments
+          (binary_expression
+            (identifier)
+            (number))
+          (binary_expression
+            (identifier)
+            (number))))
+      (function_call
+        (identifier)
+        (arguments
+          (identifier)))
+      (function_call
+        (identifier)
+        (arguments
+          (identifier)))
+      (function_call
+        (identifier)
+        (arguments
+          (function_definition
+            (parameters)
+            (block
+              (compound_assignment_statement
+                (identifier)
+                (compound_operator)
+                (number))))))
+      (compound_assignment_statement
+        (identifier)
+        (compound_operator)
+        (number))
+      (assignment_statement
+        (variable_list
+          (identifier))
+        (expression_list
+          (identifier)))
+      (function_call
+        (identifier)
+        (arguments
+          (identifier)
+          (identifier)))
+      (function_call
+        (dot_index_expression
+          (identifier)
+          (field_identifier))
+        (arguments))
+      (function_call
+        (method_index_expression
+          (identifier)
+          (field_identifier))
+        (arguments))
+      (function_call
+        (method_index_expression
+          (dot_index_expression
+            (identifier)
+            (field_identifier))
+          (field_identifier))
+        (arguments))
+      (function_call
+        (method_index_expression
+          (dot_index_expression
+            (identifier)
+            (field_identifier))
+          (field_identifier))
+        (arguments))
+      (function_call
+        (dot_index_expression
+          (identifier)
+          (field_identifier))
+        (arguments))
+      (function_call
+        (method_index_expression
+          (identifier)
+          (field_identifier))
+        (arguments))
+      (function_call
+        (method_index_expression
+          (dot_index_expression
+            (identifier)
+            (field_identifier))
+          (field_identifier))
+        (arguments))
+      (function_call
+        (identifier)
+        (arguments
+          (dot_index_expression
+            (identifier)
+            (field_identifier))))
+      (function_call
+        (identifier)
+        (arguments
+          (dot_index_expression
+            (identifier)
+            (field_identifier))))
+      (function_call
+        (identifier)
+        (arguments
+          (dot_index_expression
+            (identifier)
+            (field_identifier))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (identifier)
+            (field_identifier)))
+        (expression_list
+          (identifier)))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (identifier)
+            (field_identifier)))
+        (expression_list
+          (identifier)))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (identifier)
+            (field_identifier)))
+        (expression_list
+          (identifier)))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (identifier)
+            (field_identifier)))
+        (expression_list
+          (identifier)))
+      (function_declaration
+        (dot_index_expression
+          (identifier)
+          (field_identifier))
+        (parameters))
+      (function_declaration
+        (method_index_expression
+          (identifier)
+          (field_identifier))
+        (parameters))
+      (function_declaration
+        (method_index_expression
+          (dot_index_expression
+            (identifier)
+            (field_identifier))
+          (field_identifier))
+        (parameters))
+      (function_declaration
+        (method_index_expression
+          (dot_index_expression
+            (identifier)
+            (field_identifier))
+          (field_identifier))
+        (parameters))
+      (function_declaration
+        (dot_index_expression
+          (identifier)
+          (field_identifier))
+        (parameters))
+      (function_declaration
+        (method_index_expression
+          (identifier)
+          (field_identifier))
+        (parameters))
+      (function_declaration
+        (method_index_expression
+          (dot_index_expression
+            (identifier)
+            (field_identifier))
+          (field_identifier))
+        (parameters))
+      (local_function_declaration
+        (identifier)
+        (parameters))
+      (local_function_declaration
+        (identifier)
+        (parameters))
+      (local_function_declaration
+        (identifier)
+        (parameters))
+      (local_function_declaration
+        (identifier)
+        (parameters))
+      (for_statement
+        (for_numeric_clause
+          (binding
+            (identifier))
+          (identifier)
+          (identifier)))
+      (for_statement
+        (for_numeric_clause
+          (binding
+            (identifier))
+          (identifier)
+          (identifier)))
+      (for_statement
+        (for_numeric_clause
+          (binding
+            (identifier))
+          (identifier)
+          (identifier)))
+      (for_statement
+        (for_numeric_clause
+          (binding
+            (identifier))
+          (identifier)
+          (identifier)))
+      (for_statement
+        (for_numeric_clause
+          (binding
+            (identifier))
+          (identifier)
+          (identifier)))
+      (for_statement
+        (for_numeric_clause
+          (binding
+            (identifier))
+          (identifier)
+          (identifier)))
+      (local_function_declaration
+        (identifier)
+        (parameters
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier)))
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier)))
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier)))
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier)))))
+      (type_alias_declaration
+        (type_identifier)
+        (function_type
+          (bound_type_list
+            (type_binding
+              (identifier)
+              (type_reference
+                (type_identifier)))
+            (type_binding
+              (identifier)
+              (type_reference
+                (type_identifier)))
+            (type_binding
+              (identifier)
+              (type_reference
+                (type_identifier)))
+            (type_binding
+              (identifier)
+              (type_reference
+                (type_identifier))))
+          (type_pack
+            (type_reference
+              (type_identifier))
+            (type_reference
+              (type_identifier))
+            (type_reference
+              (type_identifier)))))
+      (type_alias_declaration
+        (type_identifier)
+        (function_type
+          (bound_type_list
+            (type_binding
+              (identifier)
+              (type_reference
+                (type_identifier)))
+            (type_binding
+              (identifier)
+              (type_reference
+                (type_identifier)))
+            (type_binding
+              (identifier)
+              (type_reference
+                (type_identifier)))
+            (type_binding
+              (identifier)
+              (type_reference
+                (type_identifier))))
+          (type_pack
+            (type_reference
+              (type_identifier)))))
+      (function_call
+        (identifier)
+        (arguments))
+      (function_call
+        (identifier)
+        (arguments))
+      (function_call
+        (identifier)
+        (arguments))
+      (type_alias_declaration
+        (type_identifier)
+        (function_type
+          (type_pack
+            (generic_type_pack
+              (type_identifier)))))
+      (type_alias_declaration
+        (type_identifier)
+        (function_type
+          (type_pack
+            (generic_type_pack
+              (type_identifier)))))
+      (type_alias_declaration
+        (type_identifier)
+        (function_type
+          (type_pack
+            (generic_type_pack
+              (type_identifier)))))
+      (type_alias_declaration
+        (type_identifier)
+        (generic_type_list_with_defaults
+          (generic_type_parameter_with_default
+            (type_identifier)
+            (type_reference
+              (type_identifier)))
+          (generic_type_parameter_with_default
+            (type_identifier)
+            (type_reference
+              (type_identifier)))
+          (generic_type_parameter_with_default
+            (type_identifier)
+            (type_reference
+              (type_identifier))))
+        (table_type))
+      (type_alias_declaration
+        (type_identifier)
+        (generic_type_list_with_defaults
+          (generic_type_pack_parameter_with_default
+            (type_identifier)
+            (type_pack
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier))))
+          (generic_type_pack_parameter_with_default
+            (type_identifier)
+            (type_pack
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier))))
+          (generic_type_pack_parameter_with_default
+            (type_identifier)
+            (type_pack
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier)))))
+        (table_type))
+      (type_function_declaration
+        (type_identifier)
+        (parameters))
+      (type_function_declaration
+        (type_identifier)
+        (parameters))
+      (type_function_declaration
+        (type_identifier)
+        (parameters))
+      (type_function_declaration
+        (type_identifier)
+        (parameters))
+      (type_alias_declaration
+        (type_identifier)
+        (table_type
+          (table_property_list
+            (table_property
+              (field_identifier)
+              (type_reference
+                (type_identifier)))
+            (table_property
+              (field_identifier)
+              (type_reference
+                (type_identifier))))))
+      (function_declaration
+        (attribute_list
+          (attribute
+            (parameter_attribute
+              (identifier)
+              (attribute_parameters
+                (literal_table
+                  (literal_field_list
+                    (literal_field
+                      (field_identifier)
+                      (literal
+                        (string
+                          (string_content))))
+                    (literal_field
+                      (field_identifier)
+                      (literal
+                        (string
+                          (string_content))))))))
+            (parameter_attribute
+              (identifier)
+              (attribute_parameters
+                (literal_list
+                  (literal
+                    (string
+                      (string_content))))))
+            (parameter_attribute
+              (identifier)
+              (attribute_parameters
+                (literal_table
+                  (literal_field_list
+                    (literal_field
+                      (field_identifier)
+                      (literal
+                        (string
+                          (string_content))))))))))
+        (identifier)
+        (parameters)))
