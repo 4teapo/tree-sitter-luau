@@ -72,6 +72,7 @@ module.exports = grammar(lua, {
     last_statement: ($) =>
       choice($.return_statement, $.break_statement, $.continue_statement),
 
+    // 'break'
     break_statement: (_) => "break",
 
     // 'return' [explist]
@@ -138,6 +139,7 @@ module.exports = grammar(lua, {
     for_generic_clause: ($) =>
       seq($.binding_list, "in", alias($._expression_list, $.expression_list)),
 
+    // '...' [':' GenericTypePack | Type]
     variadic_parameter: ($) =>
       seq(
         "...",
@@ -150,6 +152,7 @@ module.exports = grammar(lua, {
         $.variadic_parameter,
       ),
 
+    // var = NAME | prefixexp '[' exp ']' | prefixexp '.' NAME
     variable: ($) =>
       choice(
         $.identifier,
@@ -174,6 +177,7 @@ module.exports = grammar(lua, {
         field("method", $._field_identifier),
       ),
 
+    // field = '[' exp ']' '=' exp | NAME '=' exp | exp
     field: ($) =>
       choice(
         seq(
@@ -261,6 +265,7 @@ module.exports = grammar(lua, {
         field("method", $._field_identifier),
       ),
 
+    // 'local' bindinglist ['=' explist]
     local_variable_declaration: ($) =>
       seq(
         "local",
@@ -268,6 +273,7 @@ module.exports = grammar(lua, {
         optional(seq("=", alias($._expression_list, $.expression_list))),
       ),
 
+    // pars ::= '(' [litlist] ')' | littable | STRING
     attribute_parameters: ($) =>
       choice(
         seq("(", optional($.literal_list), ")"),
@@ -275,9 +281,11 @@ module.exports = grammar(lua, {
         $.string,
       ),
 
+    // '@[' parattr {',' parattr} ']'
     parameter_attribute: ($) =>
       seq(field("name", $.identifier), optional($.attribute_parameters)),
 
+    // attributes ::= {attribute}
     attribute_list: ($) => repeat1($.attribute),
 
     // attribute ::= '@' NAME | '@[' parattr {',' parattr} ']'
@@ -387,6 +395,7 @@ module.exports = grammar(lua, {
         ),
       ),
 
+    // GenericTypePackParameterWithDefault = NAME '...' '=' (TypePack | VariadicTypePack | GenericTypePack)
     generic_type_parameter_with_default: ($) =>
       seq($._type_identifier, "=", field("default", $.type)),
 
@@ -405,6 +414,7 @@ module.exports = grammar(lua, {
         ),
       ),
 
+    // exp = asexp { binop exp } | unop exp { binop exp }
     expression: ($) =>
       choice(
         $.nil,
@@ -425,6 +435,7 @@ module.exports = grammar(lua, {
         $.interpolated_string,
       ),
 
+    // '...'
     vararg_expression: ($) => "...",
 
     // attributes 'function' funcbody
@@ -457,6 +468,7 @@ module.exports = grammar(lua, {
         field("alternative", $.expression),
       ),
 
+    // 'elseif' exp 'then' exp
     elseif_expression: ($) =>
       seq(
         "elseif",
@@ -465,6 +477,7 @@ module.exports = grammar(lua, {
         field("consequence", $.expression),
       ),
 
+    // asexp = simpleexp ['::' Type]
     type_assertion_expression: ($) =>
       prec.left(
         PREC.TYPE_ASSERTION,
@@ -629,6 +642,7 @@ module.exports = grammar(lua, {
     _table_property_attribute: ($) =>
       alias(choice("read", "write"), $.identifier),
 
+    // [NAME ':'] Type
     type_binding: ($) =>
       seq(
         optional(
@@ -682,7 +696,6 @@ module.exports = grammar(lua, {
     // Union = [SimpleType {'?'}] {'|' SimpleType {'?'}}
     // Intersection = [SimpleType] {'&' SimpleType}
     // Type = Union | Intersection
-    // TODO: Should $.type count as optional or only $.inner_type?
     optional_type: ($) => prec(PREC.TYPE_OPTIONAL, seq($.inner_type, "?")),
 
     // Union = [SimpleType {'?'}] {'|' SimpleType {'?'}}
@@ -823,7 +836,7 @@ module.exports = grammar(lua, {
     unary_expression: ($) =>
       prec.left(
         PREC.UNARY,
-        seq(choice("not", "#", "-", "~"), field("operand", $.expression)),
+        seq(choice("not", "#", "-"), field("operand", $.expression)),
       ),
 
     // NAME
