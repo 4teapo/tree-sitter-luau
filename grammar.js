@@ -84,7 +84,15 @@ module.exports = grammar(lua, {
     _field_identifier: ($) => alias($.identifier, $.field_identifier),
 
     _reserved_identifier: ($) =>
-      choice("continue", "export", "type", "typeof", "declare", "class"),
+      choice(
+        "continue",
+        "export",
+        "type",
+        "typeof",
+        "declare",
+        "class",
+        "extends",
+      ),
 
     // binding = NAME [':' Type]
     binding: ($) =>

@@ -3011,6 +3011,10 @@
         {
           "type": "STRING",
           "value": "class"
+        },
+        {
+          "type": "STRING",
+          "value": "extends"
         }
       ]
     },
