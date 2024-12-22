@@ -83,7 +83,8 @@ module.exports = grammar(lua, {
 
     _field_identifier: ($) => alias($.identifier, $.field_identifier),
 
-    _reserved_identifier: ($) => choice("continue", "export", "type", "typeof"),
+    _reserved_identifier: ($) =>
+      choice("continue", "export", "type", "typeof", "declare", "class"),
 
     // binding = NAME [':' Type]
     binding: ($) =>
@@ -230,12 +231,15 @@ module.exports = grammar(lua, {
         $.local_variable_declaration,
         $.type_alias_declaration,
         $.type_function_declaration,
+        $.declare_global_declaration,
+        $.declare_global_function_declaration,
+        $.declare_class_declaration,
       ),
 
     // attributes 'function' funcname funcbody
     function_declaration: ($) =>
       seq(
-        field("attributes", optional($.attribute_list)),
+        field("attributes", optional($.attributes)),
         "function",
         field("name", $._function_name),
         $._function_body,
@@ -244,7 +248,7 @@ module.exports = grammar(lua, {
     // attributes 'local' 'function' NAME funcbody
     local_function_declaration: ($) =>
       seq(
-        field("attributes", optional($.attribute_list)),
+        field("attributes", optional($.attributes)),
         "local",
         "function",
         field("name", $.identifier),
@@ -286,7 +290,7 @@ module.exports = grammar(lua, {
       seq(field("name", $.identifier), optional($.attribute_parameters)),
 
     // attributes ::= {attribute}
-    attribute_list: ($) => repeat1($.attribute),
+    attributes: ($) => repeat1($.attribute),
 
     // attribute ::= '@' NAME | '@[' parattr {',' parattr} ']'
     attribute: ($) =>
@@ -346,7 +350,31 @@ module.exports = grammar(lua, {
         "type",
         "function",
         field("name", $._type_identifier),
-        field("body", $._function_body),
+        $._function_body,
+      ),
+
+    // See Parser::parseDeclaration in the source code of the Luau parser.
+
+    declare_global_declaration: ($) =>
+      seq("declare", field("name", $.identifier), ":", field("type", $.type)),
+
+    declare_global_function_declaration: ($) =>
+      seq(optional($.attributes), "declare", $._function_prototype),
+
+    declare_class_declaration: ($) =>
+      seq(
+        "declare",
+        "class",
+        field("name", $.identifier),
+        optional(seq("extends", field("superclass", $.identifier))),
+        repeat(
+          choice(
+            alias(seq($._function_prototype), $.class_function),
+            alias($._bare_table_property, $.class_property),
+            alias($._bare_table_indexer, $.class_indexer),
+          ),
+        ),
+        "end",
       ),
 
     generic_type_parameter: ($) => $._type_identifier,
@@ -441,17 +469,31 @@ module.exports = grammar(lua, {
     // attributes 'function' funcbody
     function_definition: ($) =>
       seq(
-        field("attributes", optional($.attribute_list)),
+        field("attributes", optional($.attributes)),
         "function",
         $._function_body,
+      ),
+
+    // 'function' NAME ['<' GenericTypeList '>'] '(' [parlist] ')' [':' ReturnType]
+    _function_prototype: ($) =>
+      seq(
+        "function",
+        field("name", $.identifier),
+        $._unnamed_function_prototype,
+      ),
+
+    // ['<' GenericTypeList '>'] '(' [parlist] ')' [':' ReturnType]
+    _unnamed_function_prototype: ($) =>
+      seq(
+        optional(seq("<", field("type_parameters", $.generic_type_list), ">")),
+        field("parameters", $.parameters),
+        optional(seq(":", field("return_type", $._return_type))),
       ),
 
     // funcbody = ['<' GenericTypeList '>'] '(' [parlist] ')' [':' ReturnType] block 'end'
     _function_body: ($) =>
       seq(
-        optional(seq("<", field("type_parameters", $.generic_type_list), ">")),
-        field("parameters", $.parameters),
-        optional(seq(":", field("return_type", $._return_type))),
+        $._unnamed_function_prototype,
         field("body", alias(optional($._block), $.block)),
         "end",
       ),
@@ -600,6 +642,22 @@ module.exports = grammar(lua, {
         optional($._field_separator),
       ),
 
+    _bare_table_property: ($) =>
+      seq(
+        field(
+          "left",
+          alias(
+            choice($._field_identifier, $._reserved_identifier),
+            $.field_identifier,
+          ),
+        ),
+        ":",
+        field("right", $.type),
+      ),
+
+    _bare_table_indexer: ($) =>
+      seq("[", field("key", $.type), "]", ":", field("value", $.type)),
+
     // TablePropOrIndexer = ['read' | 'write'] (TableProp | TableIndexer)
     // TableProp = NAME ':' Type
     table_property: ($) =>
@@ -610,15 +668,7 @@ module.exports = grammar(lua, {
             alias($._table_property_attribute, $.table_property_attribute),
           ),
         ),
-        field(
-          "left",
-          alias(
-            choice($._field_identifier, $._reserved_identifier),
-            $.field_identifier,
-          ),
-        ),
-        ":",
-        field("right", $.type),
+        $._bare_table_property,
       ),
 
     // TablePropOrIndexer = ['read' | 'write'] (TableProp | TableIndexer)
@@ -631,11 +681,7 @@ module.exports = grammar(lua, {
             alias($._table_property_attribute, $.table_property_attribute),
           ),
         ),
-        "[",
-        field("key", $.type),
-        "]",
-        ":",
-        field("value", $.type),
+        $._bare_table_indexer,
       ),
 
     // 'read' | 'write'

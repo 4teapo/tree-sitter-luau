@@ -4,6 +4,7 @@
   "local"
   "while"
   "repeat"
+  "until"
   "for"
   "in"
   "if"
@@ -29,6 +30,19 @@
     "export"
     "type"
   ] @keyword)
+
+(declare_global_function_declaration
+  "declare" @keyword)
+
+(declare_class_declaration
+  [
+    "declare"
+    "class"
+    "extends"
+  ] @keyword)
+
+(declare_global_declaration
+  "declare" @keyword)
 
 ; Punctuations
 
@@ -57,25 +71,22 @@
   [
     "<"
     ">"
-  ] @operator)
+  ] @operator.comparison)
 
 [
-  "+"
-  "-"
-  "*"
-  "/"
-  "//"
-  "%"
-  "^"
-  "#"
   "=="
   "~="
   "<="
   ">="
-  "&"
-  "|"
-  "::"
-  ".."
+] @operator.comparison
+
+[
+  "not"
+  "and"
+  "or"
+] @operator.logical
+
+[
   "="
   "+="
   "-="
@@ -85,9 +96,24 @@
   "%="
   "^="
   "..="
-  "not"
-  "and"
-  "or"
+] @operator.assignment
+
+[
+  "+"
+  "-"
+  "*"
+  "/"
+  "//"
+  "%"
+  "^"
+] @operator.arithmetic
+
+[
+  "#"
+  "&"
+  "|"
+  "::"
+  ".."
   "?"
 ] @operator
 
@@ -95,11 +121,14 @@
 
 (identifier) @variable
 
+(string_interpolation
+  [
+    "{"
+    "}"
+  ] @punctuation.special) @embedded
+
 (type_binding
   (identifier) @variable.parameter)
-
-((identifier) @variable.special
-  (#eq? @variable.special "self"))
 
 ((identifier) @variable.special
   (#any-of? @variable.special "math" "table" "string" "coroutine" "bit32" "utf8" "os" "debug"
@@ -120,10 +149,10 @@
 
 ; Constants
 
-(nil) @constant
+(nil) @constant.builtin
 
-((identifier) @constant
-  (#eq? @constant "_VERSION"))
+((identifier) @constant.builtin
+  (#eq? @constant.builtin "_VERSION"))
 
 (
   [
@@ -131,7 +160,6 @@
     (field_identifier)
   ] @constant
   (#match? @constant "^[A-Z][A-Z][A-Z_0-9]*$"))
-
 
 ; Literals
 
@@ -167,6 +195,13 @@
 
 (type_identifier) @type
 
+(type_reference
+  prefix: (identifier) @variable.namespace)
+
+(type_reference
+  prefix: (identifier) @constant.namespace
+  (#match? @constant.namespace "^[A-Z][A-Z][A-Z_0-9]*$"))
+
 ; Functions
 
 (function_declaration
@@ -180,13 +215,22 @@
   method: (field_identifier) @function)
 
 (local_function_declaration
-    name: (identifier) @function)
+  name: (identifier) @function)
+
+(declare_global_function_declaration
+  name: (identifier) @function)
+
+(class_function
+  name: (identifier) @function)
 
 (parameters
   [
     (binding
       name: (identifier) @variable.parameter)
-    (vararg_expression) @variable.parameter])
+    (variadic_parameter "..." @variable.parameter)])
+
+((identifier) @variable.special
+  (#eq? @variable.special "self"))
 
 (function_call
   name: [

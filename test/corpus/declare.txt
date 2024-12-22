@@ -1,0 +1,121 @@
+=====
+Global type declaration
+=====
+
+declare Foo: {
+    new: () -> Foo,
+    clone: (f: Foo) -> Foo,
+    ["Has Spaces"]: boolean,
+}
+
+---
+
+    (chunk
+      (declare_global_declaration
+        (identifier)
+        (table_type
+          (table_property_list
+            (table_property
+              (field_identifier)
+              (function_type
+                (type_reference
+                  (type_identifier))))
+            (table_property
+              (field_identifier)
+              (function_type
+                (bound_type_list
+                  (type_binding
+                    (identifier)
+                    (type_reference
+                      (type_identifier))))
+                (type_reference
+                  (type_identifier))))
+            (table_indexer
+              (singleton_type
+                (string
+                  (string_content)))
+              (type_reference
+                (type_identifier)))))))
+
+=====
+Global function declaration
+=====
+
+@native declare function settings(foo: string, bar: number): Settings
+
+---
+
+    (chunk
+      (declare_global_function_declaration
+        (attributes
+          (attribute
+            (identifier)))
+        (identifier)
+        (parameters
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier)))
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier))))
+        (type_reference
+          (type_identifier))))
+
+=====
+Class declaration
+=====
+
+declare class Enum
+    Name: string
+    [string]: number
+    function GetEnumItems(self): { any }
+end
+
+---
+
+    (chunk
+      (declare_class_declaration
+        (identifier)
+        (class_property
+          (field_identifier)
+          (type_reference
+            (type_identifier)))
+        (class_indexer
+          (type_reference
+            (type_identifier))
+          (type_reference
+            (type_identifier)))
+        (class_function
+          (identifier)
+          (parameters
+            (binding
+              (identifier)))
+          (table_type
+            (type_reference
+              (type_identifier))))))
+
+=====
+Class declaration with superclass
+=====
+
+declare class EnumAccessModifierType_INTERNAL extends Enum
+	Allow: EnumAccessModifierType
+	Deny: EnumAccessModifierType
+end
+
+---
+
+    (chunk
+      (declare_class_declaration
+        (identifier)
+        (identifier)
+        (class_property
+          (field_identifier)
+          (type_reference
+            (type_identifier)))
+        (class_property
+          (field_identifier)
+          (type_reference
+            (type_identifier)))))

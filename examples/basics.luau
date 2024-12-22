@@ -17,6 +17,22 @@ Block comment!
 
 ]]
 
+do
+	repeat
+		local _ = 4
+	until false
+
+	while false do
+		local _ = 4
+	end
+end
+
+--[[
+
+Block comment!
+
+]]
+
 type Ok = {
 	read x: number,
 }

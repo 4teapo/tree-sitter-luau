@@ -4,6 +4,7 @@ Reserved identifiers
 
 export type Ty = {
 	a: (type: A) -> (),
+	b: (declare: class) -> (),
 }
 
 for continue, type in {} do
@@ -18,16 +19,26 @@ end
 for type, continue in {} do
 end
 
+for declare, class in {} do
+end
+
 type continue = "12"
+type declare = "13"
 
 print(type + 2, continue + 2)
 print(continue)
 print(type)
+print(declare)
 
 continue(function()
 	continue += 2
 end)
 
+declare(function()
+	declare += 4
+end)
+
+declare = class
 type += 2
 continue = type
 print(continue, type)
@@ -39,6 +50,8 @@ foo.type:continue()
 foo.typeof()
 foo:typeof()
 foo.typeof:continue()
+declare.class()
+foo.declare()
 
 print(foo.continue)
 print(foo.type)
@@ -48,6 +61,9 @@ foo.export = type
 foo.type = export
 foo.typeof = type
 
+
+function declare.class()
+end
 function foo.continue()
 end
 function foo:continue()
@@ -75,6 +91,9 @@ end
 local function export()
 end
 
+local function declare()
+end
+
 for continue = type, typeof do
 end
 for typeof = type, typeof do
@@ -86,6 +105,15 @@ end
 for typeof = type, export do
 end
 for continue = continue, type do
+end
+for declare = class, continue do
+end
+
+declare continue: {}
+declare type: typeof
+declare class continue
+	type: typeof
+	continue: export
 end
 
 local function fun(typeof: type, export: type, continue: export, typeof: type)
@@ -141,6 +169,15 @@ end
                     (identifier)
                     (type_reference
                       (type_identifier))))
+                (type_pack)))
+            (table_property
+              (field_identifier)
+              (function_type
+                (bound_type_list
+                  (type_binding
+                    (identifier)
+                    (type_reference
+                      (type_identifier))))
                 (type_pack))))))
       (for_statement
         (for_generic_clause
@@ -174,6 +211,20 @@ end
               (identifier)))
           (expression_list
             (table_constructor))))
+      (for_statement
+        (for_generic_clause
+          (binding_list
+            (binding
+              (identifier))
+            (binding
+              (identifier)))
+          (expression_list
+            (table_constructor))))
+      (type_alias_declaration
+        (type_identifier)
+        (singleton_type
+          (string
+            (string_content))))
       (type_alias_declaration
         (type_identifier)
         (singleton_type
@@ -199,6 +250,10 @@ end
       (function_call
         (identifier)
         (arguments
+          (identifier)))
+      (function_call
+        (identifier)
+        (arguments
           (function_definition
             (parameters)
             (block
@@ -206,6 +261,21 @@ end
                 (identifier)
                 (compound_operator)
                 (number))))))
+      (function_call
+        (identifier)
+        (arguments
+          (function_definition
+            (parameters)
+            (block
+              (compound_assignment_statement
+                (identifier)
+                (compound_operator)
+                (number))))))
+      (assignment_statement
+        (variable_list
+          (identifier))
+        (expression_list
+          (identifier)))
       (compound_assignment_statement
         (identifier)
         (compound_operator)
@@ -262,11 +332,15 @@ end
           (field_identifier))
         (arguments))
       (function_call
-        (identifier)
-        (arguments
-          (dot_index_expression
-            (identifier)
-            (field_identifier))))
+        (dot_index_expression
+          (identifier)
+          (field_identifier))
+        (arguments))
+      (function_call
+        (dot_index_expression
+          (identifier)
+          (field_identifier))
+        (arguments))
       (function_call
         (identifier)
         (arguments
@@ -279,6 +353,12 @@ end
           (dot_index_expression
             (identifier)
             (field_identifier))))
+      (function_call
+        (identifier)
+        (arguments
+          (dot_index_expression
+            (identifier)
+            (field_identifier))))
       (assignment_statement
         (variable_list
           (dot_index_expression
@@ -307,6 +387,11 @@ end
             (field_identifier)))
         (expression_list
           (identifier)))
+      (function_declaration
+        (dot_index_expression
+          (identifier)
+          (field_identifier))
+        (parameters))
       (function_declaration
         (dot_index_expression
           (identifier)
@@ -360,6 +445,9 @@ end
       (local_function_declaration
         (identifier)
         (parameters))
+      (local_function_declaration
+        (identifier)
+        (parameters))
       (for_statement
         (for_numeric_clause
           (binding
@@ -396,6 +484,29 @@ end
             (identifier))
           (identifier)
           (identifier)))
+      (for_statement
+        (for_numeric_clause
+          (binding
+            (identifier))
+          (identifier)
+          (identifier)))
+      (declare_global_declaration
+        (identifier)
+        (table_type))
+      (declare_global_declaration
+        (identifier)
+        (type_reference
+          (type_identifier)))
+      (declare_class_declaration
+        (identifier)
+        (class_property
+          (field_identifier)
+          (type_reference
+            (type_identifier)))
+        (class_property
+          (field_identifier)
+          (type_reference
+            (type_identifier))))
       (local_function_declaration
         (identifier)
         (parameters
@@ -558,7 +669,7 @@ end
               (type_reference
                 (type_identifier))))))
       (function_declaration
-        (attribute_list
+        (attributes
           (attribute
             (parameter_attribute
               (identifier)
