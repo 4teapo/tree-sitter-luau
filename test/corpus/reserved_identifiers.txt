@@ -499,11 +499,11 @@ end
           (type_identifier)))
       (declare_class_declaration
         (identifier)
-        (class_property
+        (extern_type_property
           (field_identifier)
           (type_reference
             (type_identifier)))
-        (class_property
+        (extern_type_property
           (field_identifier)
           (type_reference
             (type_identifier))))

@@ -1,0 +1,13 @@
+// Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
+//
+// Example:
+[
+  {
+    "label": "Build grammar",
+    "command": "tree-sitter generate --report-states-for-rule -"
+  },
+  {
+    "label": "Test",
+    "command": "tree-sitter test"
+  }
+]

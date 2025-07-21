@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "declare_extern_type_declaration",
+        "named": true
+      },
+      {
         "type": "declare_global_declaration",
         "named": true
       },
@@ -569,58 +573,6 @@
     }
   },
   {
-    "type": "class_indexer",
-    "named": true,
-    "fields": {
-      "key": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "type",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "type",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "class_property",
-    "named": true,
-    "fields": {
-      "left": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "field_identifier",
-            "named": true
-          }
-        ]
-      },
-      "right": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "type",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "comment",
     "named": true,
     "fields": {
@@ -740,11 +692,55 @@
           "named": true
         },
         {
-          "type": "class_indexer",
+          "type": "extern_type_indexer",
           "named": true
         },
         {
-          "type": "class_property",
+          "type": "extern_type_property",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "declare_extern_type_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "supertype": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "class_function",
+          "named": true
+        },
+        {
+          "type": "extern_type_indexer",
+          "named": true
+        },
+        {
+          "type": "extern_type_property",
           "named": true
         }
       ]
@@ -986,6 +982,58 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "extern_type_indexer",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "extern_type_property",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_identifier",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2878,6 +2926,10 @@
     "named": false
   },
   {
+    "type": "extern",
+    "named": false
+  },
+  {
     "type": "false",
     "named": true
   },
@@ -2951,6 +3003,10 @@
   },
   {
     "type": "while",
+    "named": false
+  },
+  {
+    "type": "with",
     "named": false
   },
   {

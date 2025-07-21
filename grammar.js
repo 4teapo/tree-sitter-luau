@@ -242,6 +242,7 @@ module.exports = grammar(lua, {
         $.declare_global_declaration,
         $.declare_global_function_declaration,
         $.declare_class_declaration,
+        $.declare_extern_type_declaration,
       ),
 
     // attributes 'function' funcname funcbody
@@ -369,20 +370,36 @@ module.exports = grammar(lua, {
     declare_global_function_declaration: ($) =>
       seq(optional($.attributes), "declare", $._function_prototype),
 
+    _class_declaration_body: ($) =>
+      seq(
+        repeat(
+          choice(
+            alias(seq($._function_prototype), $.class_function),
+            alias($._bare_table_property, $.extern_type_property),
+            alias($._bare_table_indexer, $.extern_type_indexer),
+          ),
+        ),
+        "end",
+      ),
+
     declare_class_declaration: ($) =>
       seq(
         "declare",
         "class",
         field("name", $.identifier),
         optional(seq("extends", field("superclass", $.identifier))),
-        repeat(
-          choice(
-            alias(seq($._function_prototype), $.class_function),
-            alias($._bare_table_property, $.class_property),
-            alias($._bare_table_indexer, $.class_indexer),
-          ),
-        ),
-        "end",
+        $._class_declaration_body,
+      ),
+
+    declare_extern_type_declaration: ($) =>
+      seq(
+        "declare",
+        "extern",
+        "type",
+        field("name", $.identifier),
+        optional(seq("extends", field("supertype", $.identifier))),
+        "with",
+        $._class_declaration_body,
       ),
 
     generic_type_parameter: ($) => $._type_identifier,

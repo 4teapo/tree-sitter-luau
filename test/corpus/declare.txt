@@ -78,11 +78,11 @@ end
     (chunk
       (declare_class_declaration
         (identifier)
-        (class_property
+        (extern_type_property
           (field_identifier)
           (type_reference
             (type_identifier)))
-        (class_indexer
+        (extern_type_indexer
           (type_reference
             (type_identifier))
           (type_reference
@@ -111,11 +111,68 @@ end
       (declare_class_declaration
         (identifier)
         (identifier)
-        (class_property
+        (extern_type_property
           (field_identifier)
           (type_reference
             (type_identifier)))
-        (class_property
+        (extern_type_property
+          (field_identifier)
+          (type_reference
+            (type_identifier)))))
+
+=====
+Extern type declaration
+=====
+
+declare extern type Enum with
+    Name: string
+    [string]: number
+    function GetEnumItems(self): { any }
+end
+
+---
+
+    (chunk
+      (declare_extern_type_declaration
+        (identifier)
+        (extern_type_property
+          (field_identifier)
+          (type_reference
+            (type_identifier)))
+        (extern_type_indexer
+          (type_reference
+            (type_identifier))
+          (type_reference
+            (type_identifier)))
+        (class_function
+          (identifier)
+          (parameters
+            (binding
+              (identifier)))
+          (table_type
+            (type_reference
+              (type_identifier))))))
+
+=====
+Extern type declaration with supertype
+=====
+
+declare extern type EnumAccessModifierType_INTERNAL extends Enum with
+	Allow: EnumAccessModifierType
+	Deny: EnumAccessModifierType
+end
+
+---
+
+    (chunk
+      (declare_extern_type_declaration
+        (identifier)
+        (identifier)
+        (extern_type_property
+          (field_identifier)
+          (type_reference
+            (type_identifier)))
+        (extern_type_property
           (field_identifier)
           (type_reference
             (type_identifier)))))

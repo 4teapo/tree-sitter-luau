@@ -41,6 +41,15 @@
     "extends"
   ] @keyword)
 
+(declare_extern_type_declaration
+  [
+    "declare"
+    "extern"
+    "type"
+    "extends"
+    "with"
+  ] @keyword)
+
 (declare_global_declaration
   "declare" @keyword)
 
