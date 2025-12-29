@@ -62,6 +62,12 @@ Block comment!
 
 ]]
 
+local function beebo<A, B, C>() end
+local spiderBeebo = beebo<<string, string, string>>
+spiderBeebo()
+beebo<<number, number, number>>()
+beebo()
+
 type function fun(t: any)
 	assert(false, "ok")
 end

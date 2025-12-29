@@ -1,0 +1,50 @@
+=====
+Explicit types in call
+=====
+
+foo<<P, Q, R>>(p, q)
+
+---
+
+    (chunk
+      (function_call
+        (explicit_type_parameter_instantiation
+          (identifier)
+          (type_reference
+            (type_identifier))
+          (type_reference
+            (type_identifier))
+          (type_reference
+            (type_identifier)))
+        (arguments
+          (identifier)
+          (identifier))))
+
+=====
+Explicit types in variable
+=====
+
+local foo = bar<<P, Q, R>>
+bar(p, q)
+
+---
+
+    (chunk
+      (local_variable_declaration
+        (binding_list
+          (binding
+            (identifier)))
+        (expression_list
+          (explicit_type_parameter_instantiation
+            (identifier)
+            (type_reference
+              (type_identifier))
+            (type_reference
+              (type_identifier))
+            (type_reference
+              (type_identifier)))))
+      (function_call
+        (identifier)
+        (arguments
+          (identifier)
+          (identifier))))

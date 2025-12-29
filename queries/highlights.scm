@@ -31,6 +31,9 @@
     "type"
   ] @keyword)
 
+(declare_global_declaration
+  "declare" @keyword)
+
 (declare_global_function_declaration
   "declare" @keyword)
 
@@ -50,9 +53,6 @@
     "with"
   ] @keyword)
 
-(declare_global_declaration
-  "declare" @keyword)
-
 ; Punctuations
 
 [
@@ -64,6 +64,8 @@
     "}"
     "<"
     ">"
+    "<<"
+    ">>"
 ] @punctuation.bracket
 
 [
@@ -140,8 +142,8 @@
   (identifier) @variable.parameter)
 
 ((identifier) @variable.special
-  (#any-of? @variable.special "math" "table" "string" "coroutine" "bit32" "utf8" "os" "debug"
-    "buffer" "vector"))
+  (#any-of? @variable.special "math" "table" "coroutine" "bit32" "utf8" "os" "debug" "buffer"
+    "vector"))
 
 ((identifier) @variable.special
   (#match? @variable.special "^_[A-Z]*$"))
@@ -246,6 +248,8 @@
     (identifier) @function
     (dot_index_expression
       field: (field_identifier) @function)
+    (explicit_type_parameter_instantiation
+      function: (identifier) @function)
   ])
 
 (parameter_attribute
@@ -284,14 +288,9 @@
     "__le" "__mode" "__gc" "__len" "__iter"))
 
 (function_call
-  name: [
-    (dot_index_expression
-      table: (identifier) @variable.special
-      field: (field_identifier) @function.builtin)
-    (method_index_expression
-      table: (identifier) @variable.special
-      method: (field_identifier) @function.builtin)
-  ]
+  name: (dot_index_expression
+    table: (identifier) @variable.special
+    field: (field_identifier) @function.builtin)
   (#any-of? @variable.special "math" "table" "string" "coroutine" "bit32" "utf8" "os" "debug"
     "buffer" "vector"))
 

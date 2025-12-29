@@ -161,14 +161,18 @@ module.exports = grammar(lua, {
         $.variadic_parameter,
       ),
 
-    // var = NAME | prefixexp '[' exp ']' | prefixexp '.' NAME
+    // var = NAME | prefixexp '[' exp ']' | prefixexp '.' NAME | prefixexp '<<' TypeList '>>'
     variable: ($) =>
       choice(
         $.identifier,
         alias($._reserved_identifier, $.identifier),
         $.bracket_index_expression,
         $.dot_index_expression,
+        $.explicit_type_parameter_instantiation,
       ),
+
+    explicit_type_parameter_instantiation: ($) =>
+      seq(field("function", $._prefix_expression), "<<", $._type_list, ">>"),
 
     // prefixexp . NAME
     dot_index_expression: ($) =>
