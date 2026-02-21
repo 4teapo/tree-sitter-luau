@@ -968,7 +968,7 @@
     "fields": {
       "function": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "function_call",
@@ -980,6 +980,16 @@
           },
           {
             "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "method": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "method_index_expression",
             "named": true
           }
         ]
@@ -1927,7 +1937,7 @@
     "fields": {
       "method": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "field_identifier",
@@ -1937,7 +1947,7 @@
       },
       "table": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "function_call",
@@ -1953,6 +1963,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "explicit_type_parameter_instantiation",
+          "named": true
+        }
+      ]
     }
   },
   {

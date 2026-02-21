@@ -2014,8 +2014,13 @@
           "name": "dot_index_expression"
         },
         {
-          "type": "SYMBOL",
-          "name": "explicit_type_parameter_instantiation"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_prefix_explicit_type_parameter_instantiation"
+          },
+          "named": true,
+          "value": "explicit_type_parameter_instantiation"
         }
       ]
     },
@@ -2104,27 +2109,20 @@
       ]
     },
     "method_index_expression": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "FIELD",
-          "name": "table",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_prefix_expression"
-          }
+          "type": "SYMBOL",
+          "name": "_method_index_expression"
         },
         {
-          "type": "STRING",
-          "value": ":"
-        },
-        {
-          "type": "FIELD",
-          "name": "method",
+          "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "_field_identifier"
-          }
+            "name": "_method_explicit_type_parameter_instantiation"
+          },
+          "named": true,
+          "value": "explicit_type_parameter_instantiation"
         }
       ]
     },
@@ -3137,7 +3135,7 @@
         }
       ]
     },
-    "explicit_type_parameter_instantiation": {
+    "_prefix_explicit_type_parameter_instantiation": {
       "type": "SEQ",
       "members": [
         {
@@ -3159,6 +3157,56 @@
         {
           "type": "STRING",
           "value": ">>"
+        }
+      ]
+    },
+    "_method_explicit_type_parameter_instantiation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "method",
+          "content": {
+            "type": "SYMBOL",
+            "name": "method_index_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "<<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_type_list"
+        },
+        {
+          "type": "STRING",
+          "value": ">>"
+        }
+      ]
+    },
+    "_method_index_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "table",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_prefix_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "method",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_field_identifier"
+          }
         }
       ]
     },

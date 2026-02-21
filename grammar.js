@@ -168,11 +168,17 @@ module.exports = grammar(lua, {
         alias($._reserved_identifier, $.identifier),
         $.bracket_index_expression,
         $.dot_index_expression,
-        $.explicit_type_parameter_instantiation,
+        alias(
+          $._prefix_explicit_type_parameter_instantiation,
+          $.explicit_type_parameter_instantiation,
+        ),
       ),
 
-    explicit_type_parameter_instantiation: ($) =>
+    _prefix_explicit_type_parameter_instantiation: ($) =>
       seq(field("function", $._prefix_expression), "<<", $._type_list, ">>"),
+
+    _method_explicit_type_parameter_instantiation: ($) =>
+      seq(field("method", $.method_index_expression), "<<", $._type_list, ">>"),
 
     // prefixexp . NAME
     dot_index_expression: ($) =>
@@ -183,11 +189,20 @@ module.exports = grammar(lua, {
       ),
 
     // prefixexp ':' NAME
-    method_index_expression: ($) =>
+    _method_index_expression: ($) =>
       seq(
         field("table", $._prefix_expression),
         ":",
         field("method", $._field_identifier),
+      ),
+
+    method_index_expression: ($) =>
+      choice(
+        $._method_index_expression,
+        alias(
+          $._method_explicit_type_parameter_instantiation,
+          $.explicit_type_parameter_instantiation,
+        ),
       ),
 
     // field = '[' exp ']' '=' exp | NAME '=' exp | exp

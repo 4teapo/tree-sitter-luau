@@ -86,6 +86,17 @@ end
 
 foo.bar.baz()
 
+local function makeTyper<T>(): () -> T?
+	return function() return nil end
+end
+
+local typerMake = {}
+typerMake.makeTyper = makeTyper
+
+local numberTyper = makeTyper<<number>>()
+local stringTyper = typerMake.makeTyper<<string>>()
+local bufferTyper = typerMake:makeTyper<<buffer>>()
+
 type Entity<T = nil> = Jecs.Entity<T>
 
 type Foo<A, B...> = Bar<B...> | Baz<A>

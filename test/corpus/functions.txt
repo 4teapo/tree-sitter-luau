@@ -48,3 +48,50 @@ bar(p, q)
         (arguments
           (identifier)
           (identifier))))
+
+=====
+Explicit types dot index call
+=====
+
+local foo = tbl.bar<<string>>()
+
+---
+
+    (chunk
+      (local_variable_declaration
+        (binding_list
+          (binding
+            (identifier)))
+        (expression_list
+          (function_call
+            (explicit_type_parameter_instantiation
+              (dot_index_expression
+                (identifier)
+                (field_identifier))
+              (type_reference
+                (type_identifier)))
+            (arguments)))))
+
+=====
+Explicit types dot method call
+=====
+
+local foo = tbl:bar<<string>>()
+
+---
+
+    (chunk
+      (local_variable_declaration
+        (binding_list
+          (binding
+            (identifier)))
+        (expression_list
+          (function_call
+            (method_index_expression
+              (explicit_type_parameter_instantiation
+                (method_index_expression
+                  (identifier)
+                  (field_identifier))
+                (type_reference
+                  (type_identifier))))
+            (arguments)))))
