@@ -996,19 +996,11 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "generic_type_pack",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        },
-        {
-          "type": "variadic_type_pack",
+          "type": "type_parameters",
           "named": true
         }
       ]

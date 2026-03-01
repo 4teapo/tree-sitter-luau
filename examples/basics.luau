@@ -66,6 +66,7 @@ local function beebo<A, B, C>() end
 local spiderBeebo = beebo<<string, string, string>>
 spiderBeebo()
 beebo<<number, number, number>>()
+beebo<<(number, string), buffer, (foo, bar, baz), qux>>
 beebo()
 
 type function fun(t: any)

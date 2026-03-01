@@ -3152,7 +3152,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_type_list"
+          "name": "type_parameters"
         },
         {
           "type": "STRING",
@@ -3177,7 +3177,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_type_list"
+          "name": "type_parameters"
         },
         {
           "type": "STRING",

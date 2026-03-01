@@ -10,12 +10,50 @@ foo<<P, Q, R>>(p, q)
       (function_call
         (explicit_type_parameter_instantiation
           (identifier)
-          (type_reference
-            (type_identifier))
-          (type_reference
-            (type_identifier))
-          (type_reference
-            (type_identifier)))
+          (type_parameters
+            (type_reference
+              (type_identifier))
+            (type_reference
+              (type_identifier))
+            (type_reference
+              (type_identifier))))
+        (arguments
+          (identifier)
+          (identifier))))
+
+=====
+Explicit types including type pack in call
+=====
+
+foo<<P, Q, R, (U, V, W), X, (Y, Z)>>(p, q)
+
+---
+
+    (chunk
+      (function_call
+        (explicit_type_parameter_instantiation
+          (identifier)
+          (type_parameters
+            (type_reference
+              (type_identifier))
+            (type_reference
+              (type_identifier))
+            (type_reference
+              (type_identifier))
+            (type_pack
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier)))
+            (type_reference
+              (type_identifier))
+            (type_pack
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier)))))
         (arguments
           (identifier)
           (identifier))))
@@ -37,12 +75,13 @@ bar(p, q)
         (expression_list
           (explicit_type_parameter_instantiation
             (identifier)
-            (type_reference
-              (type_identifier))
-            (type_reference
-              (type_identifier))
-            (type_reference
-              (type_identifier)))))
+            (type_parameters
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier))
+              (type_reference
+                (type_identifier))))))
       (function_call
         (identifier)
         (arguments
@@ -68,8 +107,9 @@ local foo = tbl.bar<<string>>()
               (dot_index_expression
                 (identifier)
                 (field_identifier))
-              (type_reference
-                (type_identifier)))
+              (type_parameters
+                (type_reference
+                  (type_identifier))))
             (arguments)))))
 
 =====
@@ -92,6 +132,7 @@ local foo = tbl:bar<<string>>()
                 (method_index_expression
                   (identifier)
                   (field_identifier))
-                (type_reference
-                  (type_identifier))))
+                (type_parameters
+                  (type_reference
+                    (type_identifier)))))
             (arguments)))))
