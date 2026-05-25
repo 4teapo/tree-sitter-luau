@@ -705,3 +705,50 @@ end
                           (string_content))))))))))
         (identifier)
         (parameters)))
+
+=====
+Const as variable name
+=====
+
+const const = 12
+print(const)
+
+---
+
+    (chunk
+      (const_variable_declaration
+        (binding_list
+          (binding
+            (identifier)))
+        (expression_list
+          (number)))
+      (function_call
+        (identifier)
+        (arguments
+          (identifier))))
+
+=====
+Const as mutated variable
+=====
+
+local const = 12
+print(const)
+const += 4
+
+---
+
+    (chunk
+      (local_variable_declaration
+        (binding_list
+          (binding
+            (identifier)))
+        (expression_list
+          (number)))
+      (function_call
+        (identifier)
+        (arguments
+          (identifier)))
+      (compound_assignment_statement
+        (identifier)
+        (compound_operator)
+        (number)))

@@ -10,6 +10,9 @@ end
 do
 	const CONSTANT = 21
 	const non_constant = 4444444
+	local const = 12
+	print(const)
+	const += 1
 end
 
 -- String interpolation

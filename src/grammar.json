@@ -3029,6 +3029,10 @@
         {
           "type": "STRING",
           "value": "extends"
+        },
+        {
+          "type": "STRING",
+          "value": "const"
         }
       ]
     },

@@ -92,6 +92,7 @@ module.exports = grammar(lua, {
         "declare",
         "class",
         "extends",
+        "const",
       ),
 
     // binding = NAME [':' Type]
