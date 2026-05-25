@@ -4,6 +4,14 @@
     "named": true,
     "subtypes": [
       {
+        "type": "const_function_declaration",
+        "named": true
+      },
+      {
+        "type": "const_variable_declaration",
+        "named": true
+      },
+      {
         "type": "declare_class_declaration",
         "named": true
       },
@@ -656,6 +664,103 @@
     "type": "compound_operator",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "const_function_declaration",
+    "named": true,
+    "fields": {
+      "attributes": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "attributes",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "parameters",
+            "named": true
+          }
+        ]
+      },
+      "return_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "generic_type_pack",
+            "named": true
+          },
+          {
+            "type": "type",
+            "named": true
+          },
+          {
+            "type": "type_pack",
+            "named": true
+          },
+          {
+            "type": "variadic_type_pack",
+            "named": true
+          }
+        ]
+      },
+      "type_parameters": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "generic_type_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "const_variable_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binding_list",
+          "named": true
+        },
+        {
+          "type": "expression_list",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "continue_statement",
@@ -2954,6 +3059,10 @@
   {
     "type": "comment_content",
     "named": true
+  },
+  {
+    "type": "const",
+    "named": false
   },
   {
     "type": "continue",

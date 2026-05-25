@@ -738,7 +738,15 @@
         },
         {
           "type": "SYMBOL",
+          "name": "const_function_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "local_variable_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "const_variable_declaration"
         },
         {
           "type": "SYMBOL",
@@ -3321,12 +3329,92 @@
         }
       ]
     },
+    "const_function_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "attributes",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "attributes"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "const"
+        },
+        {
+          "type": "STRING",
+          "value": "function"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_function_body"
+        }
+      ]
+    },
     "local_variable_declaration": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
           "value": "local"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "binding_list"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_expression_list"
+                  },
+                  "named": true,
+                  "value": "expression_list"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "const_variable_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "const"
         },
         {
           "type": "SYMBOL",

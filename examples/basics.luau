@@ -6,6 +6,12 @@ do
 	local non_constant = 4
 end
 
+-- Real constants.
+do
+	const CONSTANT = 21
+	const non_constant = 4444444
+end
+
 -- String interpolation
 do
 	local interpolated_string = `AAA!\nBBB!\n{1 + 2} + 3 = {1 + 2 + 3}!\nCCC.`
@@ -75,6 +81,10 @@ end
 
 @native @[fun { hi = "there" }] local function b(c: | d | e, ...): (&f, ...g)
 	error("grr", 3)
+end
+
+const function L(c: | d | e, ...): (g...)
+	error("brr", 3)
 end
 
 foo.bar:baz()

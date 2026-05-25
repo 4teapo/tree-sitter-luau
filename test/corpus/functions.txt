@@ -136,3 +136,77 @@ local foo = tbl:bar<<string>>()
                   (type_reference
                     (type_identifier)))))
             (arguments)))))
+
+=====
+Local function declaration
+=====
+
+local function foo<T>(a: string, b: T): (number, T)
+	print("hello, world!")
+end
+
+---
+
+    (chunk
+      (local_function_declaration
+        (identifier)
+        (generic_type_list
+          (generic_type_parameter
+            (type_identifier)))
+        (parameters
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier)))
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier))))
+        (type_pack
+          (type_reference
+            (type_identifier))
+          (type_reference
+            (type_identifier)))
+        (block
+          (function_call
+            (identifier)
+            (arguments
+              (string
+                (string_content)))))))
+
+=====
+Const function declaration
+=====
+
+const function foo<T>(a: string, b: T): (number, T)
+	print("hello, world!")
+end
+
+---
+
+    (chunk
+      (const_function_declaration
+        (identifier)
+        (generic_type_list
+          (generic_type_parameter
+            (type_identifier)))
+        (parameters
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier)))
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier))))
+        (type_pack
+          (type_reference
+            (type_identifier))
+          (type_reference
+            (type_identifier)))
+        (block
+          (function_call
+            (identifier)
+            (arguments
+              (string
+                (string_content)))))))

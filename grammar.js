@@ -117,6 +117,8 @@ module.exports = grammar(lua, {
           attributes 'function' funcname funcbody |
           attributes 'local' 'function' NAME funcbody |
           'local' bindinglist ['=' explist] |
+          attributes 'const' 'function' NAME funcbody | [TODO(teapo): Luau grammar does not include attributes here but I'm unsure that's really intended]
+          'const' bindinglist '=' explist |
           ['export'] 'type' NAME ['<' GenericTypeListWithDefaults '>'] '=' Type |
           ['export'] 'type' 'function' NAME funcbody
     */
@@ -258,6 +260,8 @@ module.exports = grammar(lua, {
       attributes 'function' funcname funcbody |
       attributes 'local' 'function' NAME funcbody |
       'local' bindinglist ['=' explist] |
+      attributes 'const' 'function' NAME funcbody | [TODO(teapo): Luau grammar does not include attributes here but I'm unsure that's really intended]
+      'const' bindinglist '=' explist |
       ['export'] 'type' NAME ['<' GenericTypeListWithDefaults '>'] '=' Type |
       ['export'] 'type' 'function' NAME funcbody
     */
@@ -265,7 +269,9 @@ module.exports = grammar(lua, {
       choice(
         $.function_declaration,
         $.local_function_declaration,
+        $.const_function_declaration,
         $.local_variable_declaration,
+        $.const_variable_declaration,
         $.type_alias_declaration,
         $.type_function_declaration,
         $.declare_global_declaration,
@@ -293,6 +299,16 @@ module.exports = grammar(lua, {
         $._function_body,
       ),
 
+    // attributes 'local' 'function' NAME funcbody
+    const_function_declaration: ($) =>
+      seq(
+        field("attributes", optional($.attributes)),
+        "const",
+        "function",
+        field("name", $.identifier),
+        $._function_body,
+      ),
+
     _function_name_dot_index_expression: ($) =>
       seq(
         field("table", $._function_name_prefix_expression),
@@ -311,6 +327,14 @@ module.exports = grammar(lua, {
     local_variable_declaration: ($) =>
       seq(
         "local",
+        $.binding_list,
+        optional(seq("=", alias($._expression_list, $.expression_list))),
+      ),
+
+    // 'cons' bindinglist ['=' explist]
+    const_variable_declaration: ($) =>
+      seq(
+        "const",
         $.binding_list,
         optional(seq("=", alias($._expression_list, $.expression_list))),
       ),
