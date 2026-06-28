@@ -210,3 +210,63 @@ end
             (arguments
               (string
                 (string_content)))))))
+
+=====
+Export function
+=====
+
+@[
+  deprecated { use = '\z
+                        Hello, World,',},checked
+]
+@[native]
+export function foo<T>(a: string, b: | T): (number, T)
+	print("hello, world!")
+end
+
+---
+
+    (chunk
+      (function_declaration
+        (attributes
+          (attribute
+            (parameter_attribute
+              (identifier)
+              (attribute_parameters
+                (literal_table
+                  (literal_field_list
+                    (literal_field
+                      (field_identifier)
+                      (literal
+                        (string
+                          (string_content))))))))
+            (parameter_attribute
+              (identifier)))
+          (attribute
+            (parameter_attribute
+              (identifier))))
+        (identifier)
+        (generic_type_list
+          (generic_type_parameter
+            (type_identifier)))
+        (parameters
+          (binding
+            (identifier)
+            (type_reference
+              (type_identifier)))
+          (binding
+            (identifier)
+            (outer_type
+              (type_reference
+                (type_identifier)))))
+        (type_pack
+          (type_reference
+            (type_identifier))
+          (type_reference
+            (type_identifier)))
+        (block
+          (function_call
+            (identifier)
+            (arguments
+              (string
+                (string_content)))))))
