@@ -213,3 +213,11 @@ export local foo = bar(123)
 
 export local export = export
 export = 12
+
+--[[
+
+Block comment!
+
+]]
+
+type T = { read: number }

@@ -752,3 +752,40 @@ const += 4
         (identifier)
         (compound_operator)
         (number)))
+
+=====
+read as field name
+=====
+
+type T = { read: number }
+
+---
+
+    (chunk
+      (type_alias_declaration
+        (type_identifier)
+        (table_type
+          (table_property_list
+            (table_property
+              (field_identifier)
+              (type_reference
+                (type_identifier)))))))
+
+=====
+iteration bindings
+=====
+
+for const: export in tbl do end
+
+---
+
+    (chunk
+      (for_statement
+        (for_generic_clause
+          (binding_list
+            (binding
+              (identifier)
+              (type_reference
+                (type_identifier))))
+          (expression_list
+            (identifier)))))
