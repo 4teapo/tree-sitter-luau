@@ -3141,6 +3141,10 @@
     "named": false
   },
   {
+    "type": "read",
+    "named": false
+  },
+  {
     "type": "repeat",
     "named": false
   },
@@ -3174,6 +3178,10 @@
   },
   {
     "type": "with",
+    "named": false
+  },
+  {
+    "type": "write",
     "named": false
   },
   {
