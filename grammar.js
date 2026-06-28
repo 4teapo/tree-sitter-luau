@@ -25,6 +25,28 @@ const PREC = {
   TYPE_REFERENCE: 13, // p.q
 };
 
+const DECIMAL_DIGIT = /[0-9]/;
+const HEX_DIGIT = /[0-9a-fA-F]/;
+const BINARY_DIGIT = /[01]/;
+
+const _number_underscores = (digit) => repeat(choice(digit, "_"));
+
+const _numeral = (digit) =>
+  choice(
+    seq(digit, _number_underscores(digit)),
+    seq(digit, _number_underscores(digit), ".", _number_underscores(digit)),
+    seq(".", digit, _number_underscores(digit)),
+  );
+
+const _exponent_part = (...delimiters) =>
+  seq(
+    choice(...delimiters),
+    optional(choice("+", "-")),
+    repeat("_"),
+    DECIMAL_DIGIT,
+    _number_underscores(DECIMAL_DIGIT),
+  );
+
 module.exports = grammar(lua, {
   name: "luau",
 
@@ -180,17 +202,25 @@ module.exports = grammar(lua, {
     _prefix_explicit_type_parameter_instantiation: ($) =>
       seq(
         field("function", $._prefix_expression),
-        "<<",
+        //"<<",
+        "<",
+        "<",
         $.type_parameters,
-        ">>",
+        ">",
+        ">",
+        //">>",
       ),
 
     _method_explicit_type_parameter_instantiation: ($) =>
       seq(
         field("method", $.method_index_expression),
-        "<<",
+        //"<<",
+        "<",
+        "<",
         $.type_parameters,
-        ">>",
+        ">",
+        ">",
+        //">>",
       ),
 
     // prefixexp . NAME
@@ -285,6 +315,7 @@ module.exports = grammar(lua, {
     function_declaration: ($) =>
       seq(
         field("attributes", optional($.attributes)),
+        optional("export"),
         "function",
         field("name", $._function_name),
         $._function_body,
@@ -327,6 +358,7 @@ module.exports = grammar(lua, {
     // 'local' bindinglist ['=' explist]
     local_variable_declaration: ($) =>
       seq(
+        optional("export"),
         "local",
         $.binding_list,
         optional(seq("=", alias($._expression_list, $.expression_list))),
@@ -335,6 +367,7 @@ module.exports = grammar(lua, {
     // 'cons' bindinglist ['=' explist]
     const_variable_declaration: ($) =>
       seq(
+        optional("export"),
         "const",
         $.binding_list,
         optional(seq("=", alias($._expression_list, $.expression_list))),
@@ -373,7 +406,11 @@ module.exports = grammar(lua, {
 
     // litfieldlist ::= litfield {fieldsep litfield} [fieldsep]
     literal_field_list: ($) =>
-      seq($.literal_field, repeat(seq($._field_separator, $.literal_field))),
+      seq(
+        $.literal_field,
+        repeat(seq($._field_separator, $.literal_field)),
+        optional($._field_separator),
+      ),
 
     // litfield ::= [NAME '='] literal
     literal_field: ($) =>
@@ -879,40 +916,28 @@ module.exports = grammar(lua, {
 
     string_interpolation: ($) => seq("{", $.expression, "}"),
 
-    // Luau has hex and binary numbers, with the 0x and 0b prefixes, and
-    // numbers can contain underscores.
-    number: ($) => {
-      const decimal_digits = /[0-9][0-9_]*/;
-      const signed_integer = seq(optional(choice("-", "+")), decimal_digits);
-      const decimal_exponent_part = seq(choice("e", "E"), signed_integer);
-
-      const hex_digits = /[a-fA-F0-9][a-fA-F0-9_]*/;
-      const hex_exponent_part = seq(choice("p", "P"), signed_integer);
-
-      const binary_digits = /[0-1][0-1_]*/;
-
-      const decimal_literal = choice(
+    number: () =>
+      token(
         seq(
-          decimal_digits,
-          ".",
-          optional(decimal_digits),
-          optional(decimal_exponent_part),
+          choice(
+            seq(_numeral(DECIMAL_DIGIT), optional(_exponent_part("e", "E"))),
+            seq(
+              "0",
+              repeat("_"),
+              choice("x", "X"),
+              _number_underscores(HEX_DIGIT),
+            ),
+            seq(
+              "0",
+              repeat("_"),
+              choice("b", "B"),
+              _number_underscores(BINARY_DIGIT),
+            ),
+          ),
+          optional("i"),
+          repeat("_"),
         ),
-        seq(".", decimal_digits, optional(decimal_exponent_part)),
-        seq(decimal_digits, optional(decimal_exponent_part)),
-      );
-
-      const hex_literal = seq(
-        choice("0x", "0X"),
-        hex_digits,
-        optional(seq(".", hex_digits)),
-        optional(hex_exponent_part),
-      );
-
-      const binary_literal = seq(choice("0b", "0B"), binary_digits);
-
-      return token(choice(decimal_literal, hex_literal, binary_literal));
-    },
+      ),
 
     // exp binop exp
     binary_expression: ($) =>

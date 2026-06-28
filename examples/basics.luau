@@ -180,3 +180,36 @@ end
 Block comment!
 
 ]]
+
+typeconst<const>=any?
+consttype:|const?=type
+typetype=typeof(type(type))
+constconst:|type=table[--[=[]=]"freeze"--[=[]=]]
+constcontinue:|const=type
+exporttypeexport=typeof(...::|type)
+exportlocal export:|export=const(setmetatable({},{__call=@[
+  deprecated { use = '\z
+                        Hello, World,',},checked
+]
+@[native] function(_, _)
+  return const(_)
+end;}));
+constconst:|const=const{
+  const =  const { if if if const then const < <|const<|const?>?> --[[hi]] > {} else true then if not continue or continue(continue)then continue(continue) else false else if type then export{} else false then 0x1 else 0x_0b_1_0_i_;};
+}.const or const { const ::|const???;};
+print<<const>>(const)
+
+
+@[
+  deprecated { use = '\z
+                        Hello, World,',},checked
+]
+@[native]
+export function foo<T>(a: string, b: | T): (number, T)
+	print("hello, world!")
+end
+export const bar = 12
+export local foo = bar(123)
+
+export local export = export
+export = 12

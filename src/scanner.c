@@ -231,13 +231,16 @@ bool tree_sitter_luau_external_scanner_scan(void *payload, TSLexer *lexer, const
 
     skip_whitespaces(lexer);
 
-    if (valid_symbols[STRING_START] && scan_string_start(scanner, lexer)) {
-        lexer->result_symbol = STRING_START;
-        return true;
-    }
-
-    if (valid_symbols[BLOCK_COMMENT_START]) {
+    // Guard the comment start check so we ONLY attempt it if the first character is '-'.
+    // This prevents a failed scan_string_start from falling through and eating unrelated characters.
+    if (valid_symbols[BLOCK_COMMENT_START] && lexer->lookahead == '-') {
         if (scan_comment_start(scanner, lexer)) {
+            return true;
+        }
+    }
+    else if (valid_symbols[STRING_START]) {
+        if (scan_string_start(scanner, lexer)) {
+            lexer->result_symbol = STRING_START;
             return true;
         }
     }
